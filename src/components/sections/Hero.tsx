@@ -4,74 +4,77 @@ import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
-    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black z-0"></div>
+    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-transparent">
+      {/* Cinematic vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_#050505_100%)] z-0 opacity-80 pointer-events-none"></div>
 
-      <div className="z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
+      <div className="z-10 text-center px-4 max-w-7xl mx-auto flex flex-col items-center w-full">
+
+        <div className="overflow-hidden mb-2">
+          <motion.h1
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            className="text-6xl md:text-8xl lg:text-[10rem] font-sans font-black tracking-mega uppercase text-transparent bg-clip-text bg-gradient-to-b from-white to-silver-500 leading-none py-2"
+          >
+            KEN RODRIGUES
+          </motion.h1>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, filter: "blur(10px)" }}
+          animate={{ opacity: 1, filter: "blur(0px)" }}
+          transition={{ duration: 1.5, delay: 0.8 }}
+          className="h-px w-3/4 md:w-1/2 bg-gradient-to-r from-transparent via-white/30 to-transparent mb-8"
+        />
+
+        <div className="overflow-hidden mb-8">
+          <motion.h2
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 1 }}
+            className="text-sm md:text-lg text-silver-300 font-sans tracking-widest-plus uppercase"
+          >
+            Tech Enthusiast &bull; AI Explorer &bull; Creative Developer
+          </motion.h2>
+        </div>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-gray-400 tracking-widest-plus mb-4 text-sm md:text-base font-sans uppercase"
+          transition={{ duration: 1.2, delay: 1.3, ease: "easeOut" }}
+          className="text-silver-500 max-w-2xl text-center mb-16 leading-relaxed text-sm md:text-base font-light px-4"
         >
-          HEY, I&apos;M
-        </motion.p>
-
-        <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-          className="text-5xl md:text-7xl lg:text-9xl font-sans font-black mb-6 text-glow tracking-wider uppercase text-white"
-        >
-          Ken Rodrigues
-        </motion.h1>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-xl md:text-2xl text-purple-300 font-sans tracking-wide mb-8"
-        >
-          Tech Enthusiast. AI Explorer. Future Builder.
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="text-gray-300 max-w-2xl text-center mb-12 leading-relaxed text-sm md:text-base glass p-6 rounded-xl border-glow"
-        >
-          I&apos;m a Computer Science Engineering student passionate about AI, machine learning, web development, and building futuristic digital experiences that merge technology, creativity, and real-world impact.
+          A Computer Science Engineering student building immersive digital experiences, intelligent systems, and futuristic web products through the intersection of AI, design, and technology.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="flex flex-col sm:flex-row gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, delay: 1.8 }}
+          className="flex flex-col sm:flex-row gap-6 items-center"
         >
-          <a href="#projects" className="relative group overflow-hidden px-8 py-4 rounded-full border border-purple-500 bg-purple-900/20 hover:bg-purple-900/40 transition-all duration-300 backdrop-blur-sm box-glow">
-            <span className="relative z-10 font-sans tracking-widest text-sm uppercase">Explore My Work</span>
-            <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-purple-600/50 to-blue-600/50 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></div>
+          <a href="#projects" className="relative group overflow-hidden px-10 py-4 rounded-full bg-white text-black transition-all duration-500 hover:scale-105">
+            <span className="relative z-10 font-sans tracking-widest text-xs font-bold uppercase">Explore Projects</span>
+            <div className="absolute inset-0 h-full w-full bg-gray-200 scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-500 ease-[0.16,1,0.3,1]"></div>
           </a>
-          <a href="#contact" className="px-8 py-4 rounded-full border border-gray-700 hover:border-gray-400 hover:bg-white/5 transition-all duration-300 font-sans tracking-widest text-sm uppercase backdrop-blur-sm">
-            Contact Me
+          <a href="#contact" className="px-10 py-4 rounded-full border border-white/20 text-white hover:border-white/60 hover:bg-white/5 transition-all duration-500 font-sans tracking-widest text-xs uppercase backdrop-blur-md">
+            Contact
           </a>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Cinematic Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center z-10"
+        transition={{ delay: 2.5, duration: 1 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 overflow-hidden"
       >
-        <span className="text-xs text-gray-500 uppercase tracking-widest mb-2 font-sans">Scroll</span>
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-          className="w-px h-12 bg-gradient-to-b from-purple-500 to-transparent"
+          animate={{ y: ["-100%", "100%"] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+          className="w-[1px] h-16 bg-gradient-to-b from-transparent via-white to-transparent"
         />
       </motion.div>
     </section>

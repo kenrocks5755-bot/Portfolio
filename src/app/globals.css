@@ -3,15 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
+  --background: #050505;
+  --foreground: #f2f2f2;
 }
 
 body {
@@ -19,24 +12,26 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #050505;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333333;
-  border-radius: 4px;
+  background: #222222;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555555;
+  background: #444444;
 }
 
 html.lenis {
@@ -52,26 +47,35 @@ html.lenis {
   overflow: hidden;
 }
 
-.text-glow {
-  text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+.text-elegant-glow {
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
 }
 
-.box-glow {
-  box-shadow: 0 0 30px rgba(138, 43, 226, 0.15);
-}
-
-.border-glow {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05) inset;
-}
-
-.glass {
-  background: rgba(10, 10, 15, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.glass-premium {
+  background: rgba(20, 20, 20, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .tracking-widest-plus {
   letter-spacing: 0.2em;
+}
+
+.tracking-mega {
+  letter-spacing: 0.3em;
+}
+
+.text-gradient-silver {
+  background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-dark {
+  background: linear-gradient(135deg, #666666 0%, #222222 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

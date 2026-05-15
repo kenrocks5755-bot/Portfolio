@@ -3,76 +3,87 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
-const ProjectCard = ({
+const ProjectSection = ({
   title,
   description,
-  features,
-  tech,
-  index
+  index,
+  align
 }: {
   title: string,
   description: string,
-  features: string[],
-  tech: string[],
-  index: number
+  index: number,
+  align: 'left' | 'right'
 }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "center center"]
+    target: containerRef,
+    offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
+  const yText = useTransform(scrollYProgress, [0, 1], [150, -150]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  const scaleImage = useTransform(scrollYProgress, [0, 1], [1.2, 1]);
 
   return (
-    <motion.div
-      ref={cardRef}
-      style={{ y, opacity, scale }}
-      className="relative group glass rounded-3xl p-1 md:p-2 overflow-hidden border border-white/10"
-    >
-      {/* Animated gradient border effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 opacity-0 group-hover:opacity-20 transition-opacity duration-500" style={{ backgroundSize: "200% auto", animation: "gradient 3s linear infinite" }} />
+    <div ref={containerRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden snap-center group">
+      {/* Cinematic Image/Abstract Background Placeholder */}
+      <motion.div
+        style={{ scale: scaleImage }}
+        className="absolute inset-0 z-0 bg-matte-800"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505] z-10" />
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent mix-blend-overlay" />
+      </motion.div>
 
-      <div className="relative bg-black/90 rounded-2xl p-8 h-full flex flex-col justify-between z-10">
-        <div>
-          <div className="flex justify-between items-start mb-6">
-            <h3 className="text-3xl md:text-5xl font-sans font-bold uppercase tracking-wider text-white group-hover:text-glow transition-all duration-300">
+      <div className={`relative z-20 w-full max-w-7xl mx-auto px-6 flex flex-col ${align === 'left' ? 'items-start text-left' : 'items-end text-right'}`}>
+        <motion.div style={{ y: yText, opacity }} className="max-w-2xl">
+          <div className="overflow-hidden mb-4">
+            <motion.span
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-silver-500 font-sans tracking-widest-plus text-xs uppercase block"
+            >
+              0{index + 1} &mdash; Product Reveal
+            </motion.span>
+          </div>
+
+          <div className="overflow-hidden mb-8">
+            <motion.h3
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-5xl md:text-7xl font-sans font-black uppercase tracking-wider text-white leading-tight"
+            >
               {title}
-            </h3>
-            <span className="text-purple-500 font-sans text-sm tracking-widest">0{index + 1}</span>
+            </motion.h3>
           </div>
 
-          <p className="text-gray-400 leading-relaxed mb-8 text-sm md:text-base border-l-2 border-purple-500/50 pl-4">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+            className="text-silver-300 leading-relaxed md:text-lg font-light mb-10"
+          >
             {description}
-          </p>
+          </motion.p>
 
-          <div className="mb-8">
-            <h4 className="text-xs text-gray-500 uppercase tracking-widest font-sans mb-3">Key Features</h4>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {features.map((feature, i) => (
-                <li key={i} className="text-sm text-gray-300 flex items-center">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 shadow-[0_0_5px_rgba(59,130,246,0.8)]" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-auto">
-          <h4 className="text-xs text-gray-500 uppercase tracking-widest font-sans mb-3">Tech Stack</h4>
-          <div className="flex flex-wrap gap-2">
-            {tech.map((t, i) => (
-              <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 font-sans tracking-wide">
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
+          <motion.button
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="group/btn flex items-center gap-4 text-xs font-sans uppercase tracking-widest text-white"
+          >
+            <span className="border-b border-white/30 pb-1 group-hover/btn:border-white transition-colors duration-300">Discover</span>
+            <div className="w-8 h-px bg-white/30 group-hover/btn:w-16 group-hover/btn:bg-white transition-all duration-500" />
+          </motion.button>
+        </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -80,51 +91,34 @@ export default function Projects() {
   const projects = [
     {
       title: "COSM AI",
-      description: "An AI-powered platform that combines intelligent assistance with real-time city-based experiences. Cosm AI delivers contextual AI insights, weather integration, events, recommendations, and immersive UI interactions through a futuristic interface.",
-      features: [
-        "AI-generated assistance",
-        "City-aware UI",
-        "Weather & event integration",
-        "Immersive animations",
-        "Futuristic interface"
-      ],
-      tech: ["Next.js", "Gemini API", "Tailwind CSS", "Framer Motion"]
+      description: "An AI-powered platform combining contextual assistance, real-time city experiences, intelligent recommendations, and immersive modern UI systems.",
+      align: 'left' as const
     },
     {
-      title: "AI Research Bot",
-      description: "An AI-powered research assistant that searches, summarizes, and presents information in a clean and intelligent way. Designed to simplify research workflows and provide concise, source-backed insights through modern AI interactions.",
-      features: [
-        "AI summarization",
-        "Source-backed answers",
-        "Intelligent search workflows",
-        "Clean research UI",
-        "Contextual responses"
-      ],
-      tech: ["Next.js", "Gemini API", "Tavily API", "Tailwind CSS"]
+      title: "AI RESEARCH BOT",
+      description: "A modern AI research assistant that searches, summarizes, and presents concise source-backed insights through intelligent workflows and clean interactive experiences.",
+      align: 'right' as const
     }
   ];
 
   return (
-    <section id="projects" className="relative py-32 w-full min-h-screen">
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <h2 className="text-4xl md:text-6xl font-sans font-bold uppercase tracking-wider mb-4">
-            Deployment <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 text-glow">Logs</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
-        </motion.div>
-
-        <div className="grid grid-cols-1 gap-16">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} index={index} />
-          ))}
-        </div>
+    <section id="projects" className="relative w-full bg-[#050505]">
+      {/* Title Section */}
+      <div className="relative h-[50vh] flex items-center justify-center">
+         <motion.h2
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="text-4xl md:text-6xl font-sans font-bold uppercase tracking-mega text-silver-300 text-center"
+          >
+            CREATING WHAT&apos;S <span className="text-white">NEXT</span>
+          </motion.h2>
       </div>
+
+      {projects.map((project, index) => (
+        <ProjectSection key={index} {...project} index={index} />
+      ))}
     </section>
   );
 }
